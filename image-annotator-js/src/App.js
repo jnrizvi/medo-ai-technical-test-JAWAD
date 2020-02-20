@@ -21,7 +21,7 @@ class App extends React.Component {
         <header className="App-header">
           <Upload handleImageUpload={this.handleImageUpload} />
           <Annotator img={this.state.imgData}></Annotator>
-          <img id="resultImage" src={this.state.imgData} alt="uploaded"/>
+          {/* <img id="resultImage" src={this.state.imgData} alt="uploaded"/> */}
         </header>
       </div>
     );

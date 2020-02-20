@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Annotation from 'react-image-annotation';
+import { ReactPictureAnnotation } from "react-picture-annotation";
 
 export default class Annotator extends React.Component {
   state = {
@@ -14,7 +15,7 @@ export default class Annotator extends React.Component {
  
   onSubmit = (annotation) => {
     const { geometry, data } = annotation
- 
+    console.log(data);
     this.setState({
       annotation: {},
       annotations: this.state.annotations.concat({
@@ -26,8 +27,10 @@ export default class Annotator extends React.Component {
       })
     })
   }
- 
+  
   render () {
+    const onSelect = selectedId => {return selectedId};
+    const onChange = data => { return data };
     return (
         <Annotation
           src={this.props.img}
@@ -41,6 +44,14 @@ export default class Annotator extends React.Component {
           onSubmit={this.onSubmit}
           allowTouch
         />
+        // <ReactPictureAnnotation
+        //   image={this.props.img}
+        //   onSelect={onSelect}
+        //   onChange={onChange}
+        //   width={1000}
+        //   height={1000}
+        // />
+        
     )
   }
 }
