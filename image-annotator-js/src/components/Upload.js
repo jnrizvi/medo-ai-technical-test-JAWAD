@@ -12,7 +12,7 @@ class Upload extends React.Component {
         component="label"
         startIcon={<CloudUploadIcon />}
       >
-        Upload File
+        Upload Image
         <input
           type="file"
           style={{ display: "none" }}
