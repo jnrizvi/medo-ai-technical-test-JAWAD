@@ -24,12 +24,14 @@ export default function CustomToolbar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: "#212121"}}>
         <Toolbar>
           <Upload handleImageUpload={props.handleImageUpload}/>
+          <Button variant="contained" style={{ marginLeft: "20px"}} >JSON Output</Button>
           <div className={classes.title}>
-            <Button color="inherit" onClick={props.handleInteresting} >Interesting</Button>
-            <Button color="inherit" onClick={props.handleUninteresting} >Uninteresting</Button>
+            
+            <Button variant="contained" color="inherit" style={{ backgroundColor: "green"}} onClick={props.handleInteresting} >Interesting</Button>
+            <Button variant="contained" color="secondary" style={{ marginLeft: "20px"}} onClick={props.handleUninteresting} >Uninteresting</Button>
           </div>
         </Toolbar>
       </AppBar>
