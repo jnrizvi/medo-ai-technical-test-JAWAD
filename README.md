@@ -5,9 +5,11 @@
 
 ### The app is deployed at https://jnrizvi.github.io/medo-ai-technical-test-JAWAD/, but you may also try it out locally using the instructions below :D.
 1. Clone this repository, and checkout whichever branch you need.
-2. Once cloned, cd into the image-annotator-js folder.
-3. Run npm install so that the node_modules folder appears.
-4. After that, you should be able to enter npm start in order to view the app in your browser on port 3000.<br/>
+2. Once cloned, ```cd``` into the image-annotator-js folder.
+3. Run ```npm install``` so that the node_modules folder appears.
+4. **If you're running the app on typscriptify branch, you may also need the following line:**
+```yarn add typescript @types/node @types/react @types/react-dom @types/jest```
+5. After that, you should be able to enter npm start in order to view the app in your browser on ```PORT 3000```.<br/>
 <br/>
 Keep in mind that I initially wrote the code in JavaScript, then converted it to TypeScript, so in case there are issues<br/>
 with running the TypeScript code, please do not hesitate to contact me at jnrizvi@ualberta.ca<br/>
