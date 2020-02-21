@@ -2,7 +2,7 @@ import React from 'react';
 import { Stage, Layer } from 'react-konva';
 import shortid from 'shortid';
 
-import CustomToolbar from '../components/CustomToolbar.js';
+import CustomToolbar from '../components/CustomToolbar';
 import Rectangle from './Rectangle/Rectangle';
 import RectTransformer from './Rectangle/RectTransformer';
 import AnnotationImage from './AnnotationImage/AnnotationImage';
@@ -16,21 +16,28 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 class App extends React.Component {
-  state = {
-    rectangles: [],
-    rectCount: 0,
-    selectedShapeName: '',
-    mouseDown: false,
-    mouseDraw: false,
-    newRectX: 0,
-    newRectY: 0,
-    imgData: null,
-    imgName: "default.xyz",
-    strokePrimary: "green",
-    strokeSecondary: "lightgreen",
-    type: "Interesting",
-    jsonOutput: "No JSON Output received yet."
-  };
+  img;
+  rectangles;
+  constructor(props){
+    super(props);
+    this.state = {
+      rectangles: [],
+      rectCount: 0,
+      selectedShapeName: '',
+      mouseDown: false,
+      mouseDraw: false,
+      newRectX: 0,
+      newRectY: 0,
+      imgData: null,
+      imgName: "default.xyz",
+      strokePrimary: "green",
+      strokeSecondary: "lightgreen",
+      type: "Interesting",
+      jsonOutput: "No JSON Output received yet."
+    };
+    this.img = null;
+  }
+  
 
   componentDidMount() {
     this.img.moveToBottom();
