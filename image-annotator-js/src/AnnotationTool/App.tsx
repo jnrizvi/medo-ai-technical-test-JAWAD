@@ -15,9 +15,25 @@ import IconButton from "@material-ui/core/IconButton";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-class App extends React.Component {
+type MyState = {
+  rectangles: Array<any>;
+  rectCount: number;
+  selectedShapeName: string;
+  mouseDown: boolean;
+  mouseDraw: boolean;
+  newRectX: number;
+  newRectY: number;
+  imgData: any;
+  imgName: string;
+  strokePrimary: string;
+  strokeSecondary: string;
+  type: string;
+  jsonOutput: string;
+};
+
+class App extends React.Component<{}, MyState> {
   img;
-  rectangles;
+  stage;
   constructor(props){
     super(props);
     this.state = {

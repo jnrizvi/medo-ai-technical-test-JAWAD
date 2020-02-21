@@ -1,7 +1,15 @@
 import React from 'react';
 import { Image } from 'react-konva';
 
-class AnnotationImage extends React.Component {
+interface AnnotationImageProps {
+  img: any;
+};
+
+interface AnnotationImageState {
+  image: any;
+}
+
+class AnnotationImage extends React.Component<AnnotationImageProps, AnnotationImageState> {
   state = {
     image: null,
   };

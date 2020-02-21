@@ -1,7 +1,13 @@
 import React from 'react';
 import { Transformer } from 'react-konva';
 
-class RectTransformer extends React.Component {
+interface RectTransformerProps {
+  selectedShapeName: string;
+};
+
+class RectTransformer extends React.Component<RectTransformerProps, {}> {
+  transformer;
+  
   componentDidMount() {
     this.checkNode();
   }

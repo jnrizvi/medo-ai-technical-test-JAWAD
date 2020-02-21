@@ -1,7 +1,18 @@
 import React from 'react';
 import { Rect } from 'react-konva';
 
-class Rectangle extends React.Component {
+interface RectangleProps {
+  onTransform: any;
+  strokes: Array<string>;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  name: string;
+}
+
+class Rectangle extends React.Component<RectangleProps, {}> {
+  rect;
   // compare batchDraw() and draw();
   componentDidUpdate() {
     // this.rect.getLayer().draw();
