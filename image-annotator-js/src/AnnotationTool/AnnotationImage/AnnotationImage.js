@@ -9,7 +9,7 @@ class AnnotationImage extends React.Component {
   componentDidMount() {
     const image = new window.Image();
     // random image placeholder, until an image is uploaded by user
-    image.src = 'https://picsum.photos/200/300';
+    image.src = '';
     image.onload = () => {
       this.setState({
         image,
@@ -17,7 +17,7 @@ class AnnotationImage extends React.Component {
     };
   }
   
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // checks if a new image was loaded
     if (nextProps.img !== this.state.image) {
       const image = new window.Image();
