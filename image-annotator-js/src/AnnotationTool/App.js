@@ -8,6 +8,13 @@ import RectTransformer from './Rectangle/RectTransformer';
 import AnnotationImage from './AnnotationImage/AnnotationImage';
 import './App.css';
 
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 class App extends React.Component {
   state = {
     rectangles: [],
@@ -21,7 +28,8 @@ class App extends React.Component {
     imgName: "default.xyz",
     strokePrimary: "green",
     strokeSecondary: "lightgreen",
-    type: "Interesting"
+    type: "Interesting",
+    jsonOutput: "No JSON Output received yet."
   };
 
   componentDidMount() {
@@ -69,11 +77,12 @@ class App extends React.Component {
 
   handleRectChange = (index, newProps) => {
     const { rectangles } = this.state;
+    // console.log(rectangles[0]);
     rectangles[index] = {
       ...rectangles[index],
       ...newProps,
     };
-
+    // console.log(rectangles[0]);
     this.setState({ rectangles });
   };
 
@@ -88,7 +97,7 @@ class App extends React.Component {
         x: newRectX,
         y: newRectY,
         width: mousePos.x - newRectX,
-        height: mousePos - newRectY,
+        height: mousePos.y - newRectY,
         name: `rect${rectCount + 1}`,
         strokes: [this.state.strokePrimary, this.state.strokeSecondary],
         type: this.state.type,
@@ -123,7 +132,7 @@ class App extends React.Component {
 
   handleJSONOutputClicked = () => {
     let data = {"imageName": this.state.imgName, "annotations": [] };
-    this.state.rectangles.map(rectangle => {
+    this.state.rectangles.forEach(rectangle => {
       data["annotations"].push({
           "annotationID": rectangle.key,
           "upperLeft": {"pointID": rectangle.name+"UL", "x": rectangle.x, "y": rectangle.y},
@@ -133,7 +142,8 @@ class App extends React.Component {
       ) 
       // console.log(rectangle);
     });
-    console.log(JSON.stringify(data))
+    this.setState({ jsonOutput: JSON.stringify(data) })
+    // console.log(JSON.stringify(data))
   }
 
   render() {
@@ -145,53 +155,92 @@ class App extends React.Component {
       handleStageMouseUp,
     } = this;
     return (
-      <div style={{display: 'flex', flexDirection:'column', justifyContent:'space-between' }} >
-        
+        [
         <CustomToolbar 
+          key="toolbar"
           handleImageUpload={this.handleImageUpload}
           handleJSONOutputClicked={this.handleJSONOutputClicked}
           handleInteresting={this.handleInteresting}
           handleUninteresting={this.handleUninteresting}
-        />
+        />,
 
-        <div id="image-container">
-          <Stage
-            ref={(node) => {
-              this.stage = node;
+        
+        <div key="content" style={{ display: 'flex', justifyContent: "center" }}>
+          <Card
+            style={{
+              flexGrow: 1,
+              margin: '20px',
+              padding: '20px',
+              paddingTop: 0,
+              minWidth: '260px',
+              maxWidth: '360px',
+              width: "80%",
+              height: '400px',
+              alignSelf: 'center',
             }}
-            container="image-container"
-            width={800}
-            height={500}
-            onMouseDown={handleStageMouseDown}
-            onTouchStart={handleStageMouseDown}
-            onMouseMove={mouseDown && handleNewRectChange}
-            onTouchMove={mouseDown && handleNewRectChange}
-            onMouseUp={mouseDown && handleStageMouseUp}
-            onTouchEnd={mouseDown && handleStageMouseUp}
           >
-            <Layer>
-              {rectangles.map((rect, i) => (
-                <Rectangle
-                  sclassName="rect"
-                  key={rect.key}
-                  {...rect}
-                  onTransform={(newProps) => {
-                    handleRectChange(i, newProps);
-                  }}
-                />
-              ))}
-              <RectTransformer selectedShapeName={selectedShapeName} />
-            </Layer>
-            <Layer
+            <CardHeader style={{ padding: "10px"}} title="JSON Output" action={
+              <CopyToClipboard
+                text={this.state.jsonOutput}
+              >
+                <IconButton aria-label="settings" style={{ marginTop: '10px' }} >
+                  <FileCopyIcon />
+                </IconButton>
+              </CopyToClipboard> 
+            }/>
+            <Typography style={{
+              wordWrap: 'break-word',
+              position: "relative",
+              height: "100%",
+              overflow: "auto"
+              }}>
+              {this.state.jsonOutput}
+            </Typography>
+            
+          </Card>
+          
+          <div id="image-container">
+            <Stage
               ref={(node) => {
-                this.img = node;
+                this.stage = node;
               }}
+              container="image-container"
+              width={800}
+              height={500}
+              onMouseDown={handleStageMouseDown}
+              onTouchStart={handleStageMouseDown}
+              onMouseMove={mouseDown && handleNewRectChange}
+              onTouchMove={mouseDown && handleNewRectChange}
+              onMouseUp={mouseDown && handleStageMouseUp}
+              onTouchEnd={mouseDown && handleStageMouseUp}
             >
-              <AnnotationImage img={this.state.imgData} />
-            </Layer>
-          </Stage>
+              <Layer>
+                {rectangles.map((rect, i) => (
+                  <Rectangle
+                    sclassName="rect"
+                    key={rect.key}
+                    {...rect}
+                    onTransform={(newProps) => {
+                      handleRectChange(i, newProps);
+                    }}
+                  />
+                ))}
+                <RectTransformer selectedShapeName={selectedShapeName} />
+              </Layer>
+              <Layer
+                ref={(node) => {
+                  this.img = node;
+                }}
+              >
+                <AnnotationImage img={this.state.imgData} />
+              </Layer>
+            </Stage>
+          </div>
+          
         </div>
-      </div>
+        ]
+        
+
     );
   }
 }

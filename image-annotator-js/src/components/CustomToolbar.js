@@ -11,6 +11,7 @@ import CodeIcon from '@material-ui/icons/Code';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    minWidth: "800px"
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -30,7 +31,7 @@ export default function CustomToolbar(props) {
       <AppBar position="static" style={{backgroundColor: "#212121"}}>
         <Toolbar>
           <Upload handleImageUpload={props.handleImageUpload}/>
-          <Button variant="contained" style={{ marginLeft: "20px"}} onClick={props.handleJSONOutputClicked} startIcon={<CodeIcon />} >JSON Output</Button>
+          <Button variant="contained" color="inherit" style={{ marginLeft: "20px", backgroundColor: "blue" }} onClick={props.handleJSONOutputClicked} startIcon={<CodeIcon />} >JSON Output</Button>
           <div className={classes.title}>
             
             <Button variant="contained" color="inherit" style={{ backgroundColor: "green"}} onClick={props.handleInteresting} startIcon={<SentimentVerySatisfiedIcon />} >Interesting</Button>

@@ -46,7 +46,7 @@ class Rectangle extends React.Component {
   render() {
     const {
       props: {
-        x, y, width, height, name, strokes,
+        x, y, width, height, name, strokes
       },
       handleChange,
       handleMouseEnter,

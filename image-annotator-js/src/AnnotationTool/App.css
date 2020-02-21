@@ -3,4 +3,16 @@
   height: 500px;
   margin: 20px;
   align-self: center;
+  background: black;
 }
+
+/* #image-container {
+  width: 800px;
+  height: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: 20px;
+  transform: translate(-50%, -50%);
+  cursor: crosshair;
+} */

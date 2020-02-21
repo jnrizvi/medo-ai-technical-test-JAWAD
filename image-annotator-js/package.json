@@ -9,6 +9,7 @@
     "konva": "^4.1.5",
     "markerjs": "^1.7.1",
     "react": "^16.12.0",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.12.0",
     "react-image-annotate": "^0.1.34",
     "react-image-annotation": "^0.9.10",
