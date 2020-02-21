@@ -18,8 +18,10 @@ class App extends React.Component {
     newRectX: 0,
     newRectY: 0,
     imgData: null,
+    imgName: "default.xyz",
     strokePrimary: "green",
-    strokeSecondary: "lightgreen"
+    strokeSecondary: "lightgreen",
+    type: "Interesting"
   };
 
   componentDidMount() {
@@ -57,6 +59,7 @@ class App extends React.Component {
         selectedShapeName: name,
         rectangles,
       });
+      // console.log(rect)
     } else {
       this.setState({
         selectedShapeName: '',
@@ -88,6 +91,7 @@ class App extends React.Component {
         height: mousePos - newRectY,
         name: `rect${rectCount + 1}`,
         strokes: [this.state.strokePrimary, this.state.strokeSecondary],
+        type: this.state.type,
         key: shortid.generate(),
       });
       return this.setState({ rectangles, mouseDraw: true });
@@ -107,17 +111,29 @@ class App extends React.Component {
 
   handleImageUpload = (event) => {
     this.setState({
-      imgData: URL.createObjectURL(event.target.files[0])
+      imgData: URL.createObjectURL(event.target.files[0]),
+      imgName: event.target.files[0].name
       // imgData: 'https://picsum.photos/200/300'
-    })
+    });
   }
 
-  handleInteresting = () => {
-    this.setState({ strokePrimary: "green", strokeSecondary: "lightgreen" })
-  }
+  handleInteresting = () => this.setState({ strokePrimary: "green", strokeSecondary: "lightgreen", type: "Interesting" })
 
-  handleUninteresting = () => {
-    this.setState({ strokePrimary: "red", strokeSecondary: "tomato" });
+  handleUninteresting = () => this.setState({ strokePrimary: "red", strokeSecondary: "tomato", type: "Uninteresting" })
+
+  handleJSONOutputClicked = () => {
+    let data = {"imageName": this.state.imgName, "annotations": [] };
+    this.state.rectangles.map(rectangle => {
+      data["annotations"].push({
+          "annotationID": rectangle.key,
+          "upperLeft": {"pointID": rectangle.name+"UL", "x": rectangle.x, "y": rectangle.y},
+          "lowerRight": {"pointID": rectangle.name+"LR", "x": rectangle.x+rectangle.width, "y": rectangle.y+rectangle.height},
+          "type": rectangle.type
+        }
+      ) 
+      // console.log(rectangle);
+    });
+    console.log(JSON.stringify(data))
   }
 
   render() {
@@ -133,6 +149,7 @@ class App extends React.Component {
         
         <CustomToolbar 
           handleImageUpload={this.handleImageUpload}
+          handleJSONOutputClicked={this.handleJSONOutputClicked}
           handleInteresting={this.handleInteresting}
           handleUninteresting={this.handleUninteresting}
         />

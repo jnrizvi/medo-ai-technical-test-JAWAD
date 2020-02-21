@@ -4,6 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Upload from './Upload.js';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+import CodeIcon from '@material-ui/icons/Code';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,11 +30,11 @@ export default function CustomToolbar(props) {
       <AppBar position="static" style={{backgroundColor: "#212121"}}>
         <Toolbar>
           <Upload handleImageUpload={props.handleImageUpload}/>
-          <Button variant="contained" style={{ marginLeft: "20px"}} >JSON Output</Button>
+          <Button variant="contained" style={{ marginLeft: "20px"}} onClick={props.handleJSONOutputClicked} startIcon={<CodeIcon />} >JSON Output</Button>
           <div className={classes.title}>
             
-            <Button variant="contained" color="inherit" style={{ backgroundColor: "green"}} onClick={props.handleInteresting} >Interesting</Button>
-            <Button variant="contained" color="secondary" style={{ marginLeft: "20px"}} onClick={props.handleUninteresting} >Uninteresting</Button>
+            <Button variant="contained" color="inherit" style={{ backgroundColor: "green"}} onClick={props.handleInteresting} startIcon={<SentimentVerySatisfiedIcon />} >Interesting</Button>
+            <Button variant="contained" color="secondary" style={{ marginLeft: "20px"}} onClick={props.handleUninteresting} startIcon={<SentimentDissatisfiedIcon />} >Uninteresting</Button>
           </div>
         </Toolbar>
       </AppBar>
