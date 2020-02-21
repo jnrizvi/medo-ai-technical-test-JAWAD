@@ -3,8 +3,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
+interface UploadProps {
+  handleImageUpload: any
+}
 
-class Upload extends React.Component {
+class Upload extends React.Component<UploadProps, {}> {
   render() {
     return (
       <Button
